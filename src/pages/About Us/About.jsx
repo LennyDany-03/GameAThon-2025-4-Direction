@@ -1,14 +1,14 @@
 import React from 'react'
 import NavBar from '../../components/NavBar/NavBar'
-import styles from './Signup.module.css'
+import styles from './About.module.css'
 
-const Signup = () => {
+const About = () => {
   return (
     <>
       <NavBar />
-      <h1>Sign Up Page</h1>
+      <h1>About Us Page</h1>
     </>
   )
 }
 
-export default Signup
+export default About
