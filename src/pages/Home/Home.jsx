@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Home, Book, Briefcase, Settings, Users, User } from "lucide-react";
+import Handmade from '../../assets/HandMade.jpg'
+import SkinCare from '../../assets/SkinCar.jpg'
+import Backet from '../../assets/Basket.jpg'
+import Marketing from '../../assets/Marketing.jpg'
 
 const HomePage = () => {
   // Banner state and functions
@@ -38,7 +42,7 @@ const HomePage = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + bannerImages.length) % bannerImages.length);
   };
   
-  // Animation variants for banner
+
   const slideVariants = {
     enter: (direction) => ({
       x: direction > 0 ? 1000 : -1000,
@@ -70,7 +74,7 @@ const HomePage = () => {
       title: "Handcrafted Jewelry Set",
       subtitle: "By Artisan Creations",
       description: "Beautiful handmade jewelry set that includes earrings, necklace, and bracelet made with sustainable materials.",
-      image: "src/assets/HandMade.jpg",
+      image: Handmade,
       price: 89.99,
       discount: 15,
       rating: 4.7,
@@ -81,7 +85,7 @@ const HomePage = () => {
       title: "Organic Skincare Bundle",
       subtitle: "By Natural Beauty",
       description: "A complete skincare set with cleanser, toner, and moisturizer made from 100% organic ingredients.",
-      image: "src/assets/SkinCar.jpg",
+      image: SkinCare,
       price: 65.50,
       discount: 0,
       rating: 4.9,
@@ -92,7 +96,7 @@ const HomePage = () => {
       title: "Woven Basket Collection",
       subtitle: "By Weave & Wonder",
       description: "Set of three handwoven baskets in different sizes, perfect for home organization and decor.",
-      image: "src/assets/Basket.jpg",
+      image: Backet,
       price: 45.99,
       discount: 10,
       rating: 4.5,
@@ -103,7 +107,7 @@ const HomePage = () => {
       title: "Digital Marketing Course",
       subtitle: "By Growth Academy",
       description: "Comprehensive online course teaching essential digital marketing skills for female entrepreneurs.",
-      image: "src/assets/Marketing.jpg",
+      image: Marketing,
       price: 129.99,
       discount: 20,
       rating: 4.8,
