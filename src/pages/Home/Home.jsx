@@ -289,7 +289,7 @@ const HomePage = () => {
           <div className="w-6 flex justify-center">
             <User size={24} />
           </div>
-          <span className="ml-4 whitespace-nowrap">Login</span>
+          <a href="/login"><span className="ml-4 whitespace-nowrap">Login</span></a>
         </div>
       </div>
 

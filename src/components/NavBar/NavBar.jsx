@@ -1,5 +1,5 @@
 import React from "react";
-import { Home, Book, Briefcase, Settings, Users, User } from "lucide-react";
+import { Home, Book, Briefcase, Settings, Users, User, Circle  } from "lucide-react";
 
 const Navbar = () => {
   const navItems = [
@@ -8,6 +8,7 @@ const Navbar = () => {
     { name: "Product", icon: Briefcase, path: "/product" },
     { name: "Service", icon: Settings, path: "/service" },
     { name: "About Us", icon: Users, path: "/aboutus" },
+    { name: "Join", icon: Circle, path: "/join" }
   ];
 
   return (
@@ -37,7 +38,7 @@ const Navbar = () => {
         <div className="w-6 flex justify-center">
           <User size={24} />
         </div>
-        <span className="ml-4 whitespace-nowrap">Login</span>
+        <a href="/login"></a>
       </div>
     </div>
   );

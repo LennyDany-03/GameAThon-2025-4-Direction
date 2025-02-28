@@ -7,6 +7,7 @@ import Learn from './pages/Learn/Learn'
 import Product from './pages/Product/Product'
 import Service from './pages/Service/Service'
 import AbouUs from './pages/About Us/About'
+import Join from './pages/Join/Join'
 
 {/* Oauth Import */}
 import Login from './pages/Login/Login'
@@ -26,6 +27,7 @@ const App = () => {
           <Route path='/product' element= {<Product />}/>
           <Route path='/service' element= {<Service />}/>
           <Route path='/aboutus' element= {<AbouUs />}/>
+          <Route path='/join' element= {<Join />}/>
 
           {/* Oauth Import */}
           <Route path='/login' element= {<Login />}/>
