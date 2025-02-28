@@ -6,43 +6,54 @@ import SkinCare from '../../assets/SkinCar.jpg'
 import Backet from '../../assets/Basket.jpg'
 import Marketing from '../../assets/Marketing.jpg'
 
+import Banner1 from '../../assets/Banner1.jpg'
+import Banner2 from '../../assets/Banner2.jpg'
+import Banner3 from '../../assets/Banner3.jpg'
+import Banner4 from '../../assets/Banner4.jpg'
+import Banner5 from '../../assets/Banner5.jpg'
+import Banner6 from '../../assets/Banner1.jpg'
+
 const HomePage = () => {
   // Banner state and functions
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
   
   // Banner images
   const bannerImages = [
-    "/api/placeholder/1200/400",
-    "/api/placeholder/1200/400",
-    "/api/placeholder/1200/400",
-    "/api/placeholder/1200/400",
-    "/api/placeholder/1200/400",
-    "/api/placeholder/1200/400",
+    Banner1,
+    Banner2,
+    Banner3,
+    Banner4,
+    Banner5,
+    Banner6,
   ];
   
   // Auto slide timer
   useEffect(() => {
     const timer = setInterval(() => {
+      setDirection(1);
       setCurrentIndex((prevIndex) => (prevIndex + 1) % bannerImages.length);
-    }, 4000);
+    }, 5000);
     
     return () => clearInterval(timer);
   }, [bannerImages.length]);
   
   // Banner controls
   const goToSlide = (index) => {
+    setDirection(index > currentIndex ? 1 : -1);
     setCurrentIndex(index);
   };
   
   const nextSlide = () => {
+    setDirection(1);
     setCurrentIndex((prevIndex) => (prevIndex + 1) % bannerImages.length);
   };
   
   const prevSlide = () => {
+    setDirection(-1);
     setCurrentIndex((prevIndex) => (prevIndex - 1 + bannerImages.length) % bannerImages.length);
   };
   
-
   const slideVariants = {
     enter: (direction) => ({
       x: direction > 0 ? 1000 : -1000,
@@ -146,7 +157,7 @@ const HomePage = () => {
               {badges.map((badge, index) => (
                 <span
                   key={index}
-                  className="px-2 py-1 text-xs font-semibold rounded-md bg-pink-600 text-white"
+                  className="px-2 py-1 text-xs font-semibold rounded-md bg-indigo-600 text-white"
                 >
                   {badge}
                 </span>
@@ -156,7 +167,7 @@ const HomePage = () => {
           
           {/* Discount Badge */}
           {discount && (
-            <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-md">
+            <div className="absolute top-2 right-2 bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded-md">
               {discount}% OFF
             </div>
           )}
@@ -176,7 +187,7 @@ const HomePage = () => {
                 <svg
                   key={i}
                   className={`w-4 h-4 ${
-                    i < rating ? "text-yellow-400" : "text-gray-300"
+                    i < rating ? "text-amber-400" : "text-gray-300"
                   }`}
                   fill="currentColor"
                   viewBox="0 0 20 20"
@@ -199,7 +210,7 @@ const HomePage = () => {
           <div className="mt-2 mb-4">
             {discountedPrice ? (
               <div className="flex items-center gap-2">
-                <span className="text-lg font-bold text-pink-600">
+                <span className="text-lg font-bold text-indigo-600">
                   ${discountedPrice.toFixed(2)}
                 </span>
                 <span className="text-sm text-gray-500 line-through">
@@ -217,7 +228,7 @@ const HomePage = () => {
 
           {/* Button */}
           <motion.button
-            className="w-full py-2 px-4 bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-md transition-colors"
+            className="w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md transition-colors"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
           >
@@ -252,7 +263,7 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navbar (sidebar) */}
-      <div className="bg-pink-600 text-white h-screen w-14 hover:w-48 fixed left-0 top-0 flex flex-col items-center py-4 transition-all duration-300 overflow-hidden z-10">
+      <div className="bg-indigo-700 text-white h-screen w-14 hover:w-48 fixed left-0 top-0 flex flex-col items-center py-4 transition-all duration-300 overflow-hidden z-10">
         {/* Logo */}
         <div className="font-bold text-xl mb-8 self-center">L</div>
 
@@ -262,7 +273,7 @@ const HomePage = () => {
             <a
               key={item.name}
               href={item.path}
-              className="flex items-center px-4 w-full h-10 hover:bg-pink-500 transition-colors duration-200"
+              className="flex items-center px-4 w-full h-10 hover:bg-indigo-600 transition-colors duration-200"
               aria-label={item.name}
             >
               <div className="w-6 flex justify-center">
@@ -274,7 +285,7 @@ const HomePage = () => {
         </nav>
 
         {/* Login Icon */}
-        <div className="mt-auto flex items-center w-full h-[40px] px-4 hover:bg-pink-500 cursor-pointer transition-colors duration-200">
+        <div className="mt-auto flex items-center w-full h-[40px] px-4 hover:bg-indigo-600 cursor-pointer transition-colors duration-200">
           <div className="w-6 flex justify-center">
             <User size={24} />
           </div>
@@ -287,10 +298,10 @@ const HomePage = () => {
         {/* Banner Section */}
         <div className="relative w-full overflow-hidden h-72 md:h-80 lg:h-96">
           {/* Main Banner Images */}
-          <AnimatePresence initial={false} custom={1}>
+          <AnimatePresence initial={false} custom={direction}>
             <motion.div
               key={currentIndex}
-              custom={1}
+              custom={direction}
               variants={slideVariants}
               initial="enter"
               animate="center"
@@ -306,7 +317,7 @@ const HomePage = () => {
                 alt={`Banner slide ${currentIndex + 1}`}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-white p-8">
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/70 to-indigo-700/40 flex flex-col items-center justify-center text-white p-8">
                 <motion.h2 
                   className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-4 text-center"
                   initial={{ opacity: 0, y: -20 }}
@@ -329,7 +340,7 @@ const HomePage = () => {
           
           {/* Navigation Arrows */}
           <button
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-30 hover:bg-opacity-50 rounded-full p-2 focus:outline-none"
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 rounded-full p-2 focus:outline-none transition-all"
             onClick={prevSlide}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -337,7 +348,7 @@ const HomePage = () => {
             </svg>
           </button>
           <button
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-30 hover:bg-opacity-50 rounded-full p-2 focus:outline-none"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 rounded-full p-2 focus:outline-none transition-all"
             onClick={nextSlide}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -351,8 +362,8 @@ const HomePage = () => {
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`w-2 h-2 md:w-3 md:h-3 rounded-full focus:outline-none ${
-                  index === currentIndex ? "bg-white" : "bg-white bg-opacity-50"
+                className={`w-2 h-2 md:w-3 md:h-3 rounded-full focus:outline-none transition-all ${
+                  index === currentIndex ? "bg-white scale-125" : "bg-white/50 hover:bg-white/70"
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
@@ -362,20 +373,21 @@ const HomePage = () => {
 
         {/* Featured Products Section */}
         <motion.section 
-          className="py-8 px-4 max-w-7xl mx-auto"
+          className="py-12 px-4 max-w-7xl mx-auto"
           variants={contentVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <motion.div className="mb-6 text-center" variants={itemVariants}>
+          <motion.div className="mb-8 text-center" variants={itemVariants}>
             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Featured Products</h2>
+            <div className="h-1 w-20 bg-indigo-600 mx-auto mb-4"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Discover unique products and services from women entrepreneurs around the world
             </p>
           </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {featuredProducts.map((product) => (
               <Card
                 key={product.id}
@@ -392,11 +404,11 @@ const HomePage = () => {
           </div>
           
           <motion.div 
-            className="mt-8 text-center"
+            className="mt-10 text-center"
             variants={itemVariants}
           >
             <motion.button 
-              className="px-6 py-3 bg-pink-600 text-white rounded-lg font-medium hover:bg-pink-700 transition-colors"
+              className="px-8 py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 shadow-lg shadow-indigo-300/30 transition-all"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -407,7 +419,7 @@ const HomePage = () => {
 
         {/* Call to Action Section */}
         <motion.section 
-          className="py-10 md:py-16 px-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white"
+          className="py-16 md:py-24 px-4 bg-gradient-to-r from-indigo-600 to-purple-700 text-white"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -423,8 +435,9 @@ const HomePage = () => {
             >
               Ready to Start Your Journey?
             </motion.h2>
+            <motion.div className="h-1 w-20 bg-white/50 mx-auto mb-6"></motion.div>
             <motion.p 
-              className="text-base md:text-lg mb-6 md:mb-8 max-w-2xl mx-auto"
+              className="text-base md:text-lg mb-8 md:mb-10 max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -433,21 +446,21 @@ const HomePage = () => {
               Join our community of women entrepreneurs and take your business to new heights.
             </motion.p>
             <motion.div 
-              className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center"
+              className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.6 }}
             >
               <motion.button 
-                className="px-6 py-2 md:py-3 bg-white text-pink-600 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+                className="px-8 py-3 bg-white text-indigo-600 rounded-lg font-medium hover:bg-gray-100 shadow-lg shadow-indigo-900/20 transition-all"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Join Now
               </motion.button>
               <motion.button 
-                className="px-6 py-2 md:py-3 bg-transparent border-2 border-white text-white rounded-lg font-medium hover:bg-white hover:bg-opacity-10 transition-colors"
+                className="px-8 py-3 bg-transparent border-2 border-white text-white rounded-lg font-medium hover:bg-white/10 transition-all"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -458,9 +471,41 @@ const HomePage = () => {
         </motion.section>
 
         {/* Footer */}
-        <footer className="bg-gray-800 text-white py-8 md:py-12 px-4">
-          <div className="max-w-7xl mx-auto text-center">
-            <p className="text-gray-400 text-sm">© {new Date().getFullYear()} Women Empowerment Platform. All rights reserved.</p>
+        <footer className="bg-gray-900 text-white py-10 md:py-16 px-4">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-xl font-bold mb-4">Women Empowerment</h3>
+              <p className="text-gray-400 text-sm">Empowering women entrepreneurs to succeed in their business ventures through resources, community, and opportunities.</p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#" className="hover:text-white transition-colors">Home</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Products</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Services</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Resources</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Tutorials</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Support</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Contact</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li>Email: contact@womenempowerment.com</li>
+                <li>Phone: +1 (555) 123-4567</li>
+                <li>Address: 123 Business Ave, Suite 100, Enterprise City</li>
+              </ul>
+            </div>
+          </div>
+          <div className="max-w-7xl mx-auto mt-10 pt-6 border-t border-gray-800 text-center">
+            <p className="text-gray-500 text-sm">© {new Date().getFullYear()} Women Empowerment Platform. All rights reserved.</p>
           </div>
         </footer>
       </div>

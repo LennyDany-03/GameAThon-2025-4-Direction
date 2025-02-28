@@ -12,6 +12,8 @@ import AbouUs from './pages/About Us/About'
 import Login from './pages/Login/Login'
 import Signup from './pages/SignUp/Signup'
 
+import ProductDetail from './pages/ProductDetail/ProductDetail'
+
 const App = () => {
   return (
     <>
@@ -28,6 +30,8 @@ const App = () => {
           {/* Oauth Import */}
           <Route path='/login' element= {<Login />}/>
           <Route path='/signup' element= {<Signup />}/>
+
+          <Route path='/productdetail' element= {<ProductDetail />}/>
         </Routes>
       </Router>
     </>
